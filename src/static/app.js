@@ -16,7 +16,7 @@ document.addEventListener("DOMContentLoaded", () => {
     try {
       if (!activity) throw new Error("Please select an activity");
       const response = await fetch(
-        `/activities/${encodeURIComponent(activity)}?email=${encodeURIComponent(email)}`,
+        `/activities/${encodeURIComponent(activity)}/signup?email=${encodeURIComponent(email)}`,
         {
           method: "POST",
         }
@@ -112,6 +112,43 @@ document.addEventListener("DOMContentLoaded", () => {
 
           li.appendChild(avatar);
           li.appendChild(emailSpan);
+
+          // Remove button
+          const removeBtn = document.createElement("button");
+          removeBtn.className = "remove-btn";
+          removeBtn.type = "button";
+          removeBtn.setAttribute("aria-label", `Remove ${p} from ${name}`);
+          removeBtn.innerHTML = "&times;";
+          removeBtn.addEventListener("click", async () => {
+            const ok = confirm(`Remove ${p} from ${name}?`);
+            if (!ok) return;
+            try {
+              messageDiv.classList.remove("hidden", "success", "error");
+              messageDiv.textContent = "Removing participant...";
+              const resp = await fetch(
+                `/activities/${encodeURIComponent(name)}/participants?email=${encodeURIComponent(p)}`,
+                { method: "DELETE" }
+              );
+              const resdata = await resp.json();
+              if (!resp.ok) throw new Error(resdata.detail || resdata.message || "Remove failed");
+
+              // Update local model and re-render
+              window.activities = window.activities || {};
+              const idx = window.activities[name].participants.indexOf(p);
+              if (idx !== -1) window.activities[name].participants.splice(idx, 1);
+              renderActivities(window.activities);
+
+              messageDiv.classList.add("success");
+              messageDiv.textContent = resdata.message;
+            } catch (err) {
+              messageDiv.classList.add("error");
+              messageDiv.textContent = err.message || "Error removing participant";
+            } finally {
+              setTimeout(() => messageDiv.classList.add("hidden"), 3000);
+            }
+          });
+
+          li.appendChild(removeBtn);
           ul.appendChild(li);
         }
       }

@@ -79,6 +79,31 @@ main {
   color: #1f2937;
 }
 
+/* remove (delete) button for participants */
+.remove-btn {
+  margin-left: auto;
+  background: transparent;
+  border: 1px solid transparent;
+  color: #9ca3af;
+  font-size: 1.1rem;
+  width: 34px;
+  height: 34px;
+  border-radius: 6px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: background-color 0.12s ease, color 0.12s ease, transform 0.06s ease;
+}
+.remove-btn:hover {
+  background: #fee2e2;
+  color: #b91c1c;
+  transform: translateY(-1px);
+}
+.remove-btn:active {
+  transform: translateY(0);
+}
+
 .participants-list li.empty {
   color: #6b7280;
   font-style: italic;
