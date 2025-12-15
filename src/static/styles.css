@@ -6,139 +6,116 @@
 }
 
 body {
-  font-family: Arial, sans-serif;
-  line-height: 1.6;
-  color: #333;
-  max-width: 1200px;
-  margin: 0 auto;
-  padding: 20px;
-  background-color: #f5f5f5;
-}
-
-header {
-  text-align: center;
-  padding: 20px 0;
-  margin-bottom: 30px;
-  background-color: #1a237e;
-  color: white;
-  border-radius: 5px;
-}
-
-header h1 {
-  margin-bottom: 10px;
+  font-family: system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
+  background: #f6f8fa;
+  color: #222;
+  margin: 0;
+  padding: 0 1rem;
 }
 
 main {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 30px;
-  justify-content: center;
+  max-width: 1000px;
+  margin: 1.5rem auto;
+  display: grid;
+  grid-template-columns: 1fr 360px;
+  gap: 1.5rem;
 }
 
-@media (min-width: 768px) {
-  main {
-    grid-template-columns: 2fr 1fr;
-  }
-}
-
-section {
-  background-color: white;
-  padding: 20px;
-  border-radius: 5px;
-  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-  width: 100%;
-  max-width: 500px;
-}
-
-section h3 {
-  margin-bottom: 20px;
-  padding-bottom: 10px;
-  border-bottom: 1px solid #ddd;
-  color: #1a237e;
-}
-
+/* Activity cards */
 .activity-card {
-  margin-bottom: 15px;
-  padding: 15px;
-  border: 1px solid #ddd;
-  border-radius: 5px;
-  background-color: #f9f9f9;
+  background: #fff;
+  border-radius: 10px;
+  padding: 1rem 1.1rem;
+  box-shadow: 0 6px 18px rgba(15, 23, 42, 0.06);
+  margin-bottom: 1rem;
+  border: 1px solid #eef2f6;
 }
 
 .activity-card h4 {
-  margin-bottom: 10px;
-  color: #0066cc;
+  margin: 0 0 0.4rem 0;
+  font-size: 1.05rem;
+  color: #0f1724;
 }
 
-.activity-card p {
-  margin-bottom: 8px;
+.activity-card .desc {
+  margin: 0 0 0.5rem 0;
+  color: #445;
+  font-size: 0.95rem;
 }
 
-.form-group {
-  margin-bottom: 15px;
+.activity-card .schedule {
+  margin: 0 0 0.4rem 0;
+  color: #667;
+  font-size: 0.9rem;
 }
 
-.form-group label {
-  display: block;
-  margin-bottom: 5px;
-  font-weight: bold;
+.activity-card .capacity {
+  margin: 0 0 0.7rem 0;
+  font-weight: 600;
+  color: #333;
+  font-size: 0.9rem;
 }
 
-.form-group input,
-.form-group select {
-  width: 100%;
-  padding: 10px;
-  border: 1px solid #ddd;
-  border-radius: 4px;
-  font-size: 16px;
+/* Participants */
+.participants h5 {
+  margin: 0 0 0.5rem 0;
+  font-size: 0.9rem;
+  color: #111827;
 }
 
-button {
-  background-color: #1a237e;
+.participants-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.participants-list li {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  padding: 0.35rem 0;
+  border-top: 1px dashed #f1f5f9;
+  font-size: 0.92rem;
+  color: #1f2937;
+}
+
+.participants-list li.empty {
+  color: #6b7280;
+  font-style: italic;
+  border-top: none;
+}
+
+/* Small avatar circle for participants */
+.avatar {
+  display: inline-flex;
+  width: 34px;
+  height: 34px;
+  border-radius: 50%;
+  align-items: center;
+  justify-content: center;
+  background: linear-gradient(135deg, #6ee7b7 0%, #3b82f6 100%);
   color: white;
-  border: none;
-  padding: 10px 15px;
-  font-size: 16px;
-  border-radius: 5px;
-  cursor: pointer;
-  transition: background-color 0.2s;
+  font-weight: 700;
+  box-shadow: 0 2px 6px rgba(3, 7, 18, 0.08);
+  flex-shrink: 0;
 }
 
-button:hover {
-  background-color: #3949ab;
+/* message styles (signup feedback) */
+#message {
+  margin-top: 0.75rem;
+  padding: 0.5rem 0.75rem;
+  border-radius: 8px;
+  font-weight: 600;
+  display: inline-block;
 }
 
-.message {
-  margin-top: 20px;
-  padding: 10px;
-  border-radius: 4px;
-}
+#message.hidden { display: none; }
+#message.success { color: #065f46; background: #ecfdf5; border: 1px solid #bbf7d0; }
+#message.error { color: #7f1d1d; background: #fff1f2; border: 1px solid #fecaca; }
 
-.success {
-  background-color: #e8f5e9;
-  color: #2e7d32;
-  border: 1px solid #a5d6a7;
-}
-
-.error {
-  background-color: #ffebee;
-  color: #c62828;
-  border: 1px solid #ef9a9a;
-}
-
-.info {
-  background-color: #d1ecf1;
-  color: #0c5460;
-  border: 1px solid #bee5eb;
-}
-
-.hidden {
-  display: none;
-}
-
-footer {
-  text-align: center;
-  margin-top: 30px;
-  padding: 20px;
-  color: #666;
+/* Responsive tweaks */
+@media (max-width: 900px) {
+  main {
+    grid-template-columns: 1fr;
+  }
 }
